@@ -7,13 +7,12 @@ date: 2016-07-13
 
 #Intro to QIIME for amplicon analysis
 
-Authored by Ashley Shade, with contributions by Sang-Hoon Lee, Siobhan Cusack, Jackson Sorensen, and John Chodkowski.  Original tutorial is at [EDAMAME-2016 wiki](https://github.com/edamame-course/2016-tutorials/wiki)
+Authored by Ashley Shade, with contributions by Sang-Hoon Lee, Siobhan Cusack, Jackson Sorensen, and John Chodkowski.  Modified by Adina Howe.  Original tutorial is at [EDAMAME-2016 wiki](https://github.com/edamame-course/2016-tutorials/wiki)
 
 ##Overarching Goal
 * This tutorial will contribute towards an understanding of **microbial amplicon analysis**
 
 ##Learning Objectives
-* Install auxillary software on the QIIME EC2 image
 * Subsample a large amplicon dataset for workflow development and tutorial testing
 * Assemble paired-end reads
 * Execute a shell script to automate a process
@@ -25,15 +24,9 @@ Authored by Ashley Shade, with contributions by Sang-Hoon Lee, Siobhan Cusack, J
 * Execute a QIIME workflow, and understand the separate steps in the workflow
 * Align sequences, assign taxonomy, and build a tree with representative sequences from OTU definitions
 
-***
-
-###Handout of workflow:
--  [Paired-End Illumina QIIME open-reference workflow](https://github.com/edamame-course/2015-tutorials/blob/master/QIIME_files/QIIME%20flow%20chart.pdf)
-
-***
 
 ##1.1 Getting started
-For this tutorial, we will be using the 16S sequencing data that we previously downloaded and unzipped. Let's connect to our EC2 instance, and then wget our data.
+For this tutorial, we will be using the 16S rRNA gene sequencing data that has previously been generated. Let's connect to our compute, and download our data. 
 ```
 wget https://s3.amazonaws.com/edamame/EDAMAME_16S.tar.gz
 tar -zxvf EDAMAME_16S.tar.gz
@@ -46,7 +39,7 @@ cd EDAMAME_16S/Fastq
 You should see 108 files, all ending in .fastq.
 
 ## 1.2 Assembling Illumina paired-end sequences
-These samples were sequenced using MiSeq 150 bp paired-end approach. Since the V4 region is only 253 bp our sequences should have ~50 bp of overlap. We can use this overlap to merge our 150 bp reads together to get the full 253 bp of the v4 region. Having longer reads gives us more information to work with when clustering reads into operational taxonomic units and for aligning these reads as well. The following steps go through how we accomplish this in QIIME.  
+These samples were sequenced using MiSeq 150 bp paired-end approach. Since the V4 region is only 253 bp long, our sequences should have ~50 bp of overlap. We can use this overlap to merge our 150 bp reads together to get the full 253 bp of the v4 region. Having longer reads gives us more information to work with when clustering reads into operational taxonomic units and for aligning these reads as well. The following steps go through how we accomplish this in QIIME.  
 
 ### 1.2.1 Assembling paired-end reads.
 
