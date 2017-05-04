@@ -99,7 +99,7 @@ rm -r C01D01
 
 ###1.2.3  Automate paired-end merging with a shell script.
 
-We would have to execute an iteration of the `join_paired_ends.py` command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a [shell script](https://github.com/edamame-course/Amplicon_Analysis/blob/master/resources/Merged_Reads_Script.sh) to automate the task. You'll also need this [list](https://github.com/edamame-course/Amplicon_Analysis/blob/master/resources/list.txt) of file names.
+We would have to execute an iteration of the `join_paired_ends.py` command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a [shell script](https://github.com/edamame-course/Amplicon_Analysis/blob/master/resources/Merged_Reads_Script.sh) to automate the task. 
 
 To download the script and list onto the AMI, **first navigate to the "Fastq" directory**, use `curl` to get the files, and make a new `Merged_Reads` directory to put the merged reads into.
 
