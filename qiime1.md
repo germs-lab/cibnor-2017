@@ -84,7 +84,7 @@ grep '@HWI' fastqjoin.join.fastq > C01D01_MergedHeaders.txt
 ```
 
 The `>` redirects the output of `grep` to a file instead of having every single result fly by on the screen. If you `head` the `C01D01_MergedHeaders.txt` file you'll see the following.
-![img3](../img/fastqjoin_C01D01_headers.png)
+![img3](./img/fastqjoin_C01D01_headers.png)
 
 Then feel free to use `wc -l` on this file to check the number of lines. The `-l` command in `wc` signifies that we want to count every line instead of every word.  
 ```
@@ -123,6 +123,7 @@ chmod 755 Merged_Reads_Script.sh
 ```
 _Bonus_: A little about this shell script
 For those of you interested in how this script works I recommend you take a look at it either through your terminal with `less` or online [here](https://github.com/edamame-course/Amplicon_Analysis/blob/master/resources/Merged_Reads_Script.sh). The script uses a "for loop" to repeat a set of commands for every single pair of files we have. For each sample the script first performs the merging with `join_paired_ends.py` and saves the output to a directory with the name of the sample. Secondly, because of some weird naming conventions the `join_paired_ends.py` function follows, the script renames and moves the resulting merged read files to a single directory each with their own name. Finally, the script removes the original directory that `join_paired_ends.py` as a cleanup step. This gets rid of 54 unnecessary directories making saving our instance space and our eyes the strain of having to look at them all everytime we want to `ls` in the directory.  
+
 ###1.2.4  Sanity check #2.
 
 How many files were we expecting from the assembly?  There were 54 pairs to be assembled, and we are generating one assembled fastq for each.  Thus, the Merged_reads directory should contain 54 files.  Navigate up one directory, and then use the `wc` (word count) command to check the number of files in the directory.
@@ -136,9 +137,8 @@ The terminal should return the number "54". Let's move this whole directory up o
 mv Merged_Reads ..
 ```
 
-Congratulations, you lucky duck! You've assembled paired-end reads!  
+Congratulations! You've assembled paired-end reads!  
 
-![img4](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_04.jpg)  
 
 ##1.3 Understanding the QIIME mapping file
 
@@ -150,7 +150,7 @@ Let's spend few moments getting to know the mapping file.  Navigate to the Mappi
 nano Centralia_Full_Map.txt
 ```
 **Warning** We are using the text editor `nano` to look at the mapping file because it easier to view. However, as the description implies, you can use `nano` to alter files. Just make sure you exit the program without saving any chances by pressing `ctrl+x`. If you have made changes to the fils it will ask you if you want to save them, you do not, so type `N` and `enter`.
-![img5](../img/Mapping_File_Nano.png)
+![img5](./img/Mapping_File_Nano.png)
 
 A clear and comprehensive mapping file should contain all of the information that will be used in downstream analyses.  The mapping file includes both categorical (qualitative) and numeric (quantitative) contextual information about a sample. This could include, for example, information about the subject (sex, weight), the experimental treatment, time or spatial location, and all other measured variables (e.g., pH, oxygen, glucose levels). Creating a clear mapping file will provide direction as to appropriate analyses needed to test hypotheses.  Basically, all information for all anticipated analyses should be in the mapping file.
 
@@ -165,7 +165,7 @@ Guidelines for formatting map files:
   - If you plan to use QIIME for demultiplexing (which we do not need because the our reads already came demultiplexed from the facility), the BarcodeSequence and LinkerPrimer sequence columns are also needed, as the second and third columns, respectively.
   - Excel can cause formatting heartache.  See more details [here](https://github.com/edamame-course/docs/blob/gh-pages/extra/QIIME_Tutorial/MapFormatExcelHeartAche.md).
 
-##1.4  Getting assembled reads into the one big ol' data file, and extracting summary information
+##1.4  Getting assembled reads into the one big data file, and extracting summary information
 
 QIIME expects all of the data to be in one file, and, currently, we have one separate fastq file for each assembled read.  We will add labels to each sample and merge into one fasta file using the `add_qiime_labels.py` script. Documentation is [here](http://qiime.org/scripts/add_qiime_labels.html).
 
@@ -180,7 +180,7 @@ Inspect the new file "combined_seqs.fna."
 head combined_seqs.fna
 ```
 
-![img6](../img/Combined_Seqs_Head.png)  
+![img6](./img/Combined_Seqs_Head.png)  
 
 
 Observe that QIIME has added the SampleIDs from the mapping file to the start of each sequence.  This allows QIIME to quickly link each sequence to its sampleID and metadata.
@@ -265,7 +265,7 @@ In uclust_openref/, we can see several new directories and files.  Let's explore
 
   An great overview of the steps of the open-reference process is provided by Figure 1 of Rideout et al. 2014.
 
-![img8](../img/fig-1-2x.jpg)
+![img8](./img/fig-1-2x.jpg)
 
 If you navigate into one of the "step" directories, you will see a series of output files, including representative sequences of OTU clusters ("rep_set").  Take your time to explore these files using the `head` or `less` commands.  Then, navigate back to the uclust_openrefs directory.
 
@@ -310,7 +310,7 @@ nano final_otu_map.txt
 ```
 Explore this file.  It links the exact sequences in each sample to its OTU ID. You should see an OTU ID (starting with the number of the first OTU that was picked) in the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came, and the second part is the sequence number within that sample.  
 
-![img7](../img/Final_OTUMAP_Nano.png)
+![img7](./img/Final_OTUMAP_Nano.png)
 
 You will notice that some files have "mc2" appended to them. "mc2" designates that the minimum count of sequences for any particular OTU was 2.  In other words, that file has singleton OTUs already filtered out.  
 
