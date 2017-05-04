@@ -13,8 +13,7 @@ Authored by Ashley Shade, with contributions by Sang-Hoon Lee, Siobhan Cusack, J
 * This tutorial will contribute towards an understanding of **microbial amplicon analysis**
 
 ##Learning Objectives
-* Subsample a large amplicon dataset for workflow development and tutorial testing
-* Assemble paired-end reads
+* Execute a QIIME command:  Assemble paired-end reads
 * Execute a shell script to automate a process
 * Explore input and output files for QIIME workflows and scripts
 * Understand the structure and components of a good mapping file
@@ -327,19 +326,9 @@ more rep_set.fna
 ```
 This is not an alignment, but the list of representative sequences used to assign taxonomy to the OTU, to make the alignment, and to build the tree.
 
-######Phylogenetic tree
-```
-more rep_set.tre
-```
-You can import this tree into any tree-visualization software that accepts the .tre extension ([Newick](http://marvin.cs.uidaho.edu/Teaching/CS515/newickFormat.html) format).  This is made from from an alignment of representative sequences (in the pynast directory).  The OTU ID is given first, and then the branch length to the next node. This format is generally compatible with other tree-building and viewing software. For example, I have used it to input into the [Interactive Tree of Life](http://itol.embl.de/) to build visually appealing figures. [Topiary Explorer](http://topiaryexplorer.sourceforge.net/) is another option for visualization, and is a QIIME add-on.
 
 ######Log files
 Open them up!  You will be delighted!  It has all of the information you ever wanted to know about the parameters and tools you've just used for your workflow analysis!  _Hint_:  most of this information is needed when writing the methods sections of manuscripts using sequencing data.
-
-
-##*Congratulations!  You just had the QIIME of Your Life!*
-
-![img10](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_10.jpg)  
 
 #Resources and help
 ## QIIME
