@@ -5,13 +5,13 @@ comments: true
 date: 2016-07-13
 ---
 
-#Intro to QIIME for amplicon analysis
+# Intro to QIIME for amplicon analysis
 Authored by Ashley Shade, with contributions by Sang-Hoon Lee, Siobhan Cusack, Jackson Sorensen, and John Chodkowski.  Modified by Adina Howe.  Original tutorial is at [EDAMAME-2016 wiki](https://github.com/edamame-course/2016-tutorials/wiki)
 
-##Overarching Goal
+## Overarching Goal
 * This tutorial will contribute towards an understanding of **microbial amplicon analysis**
 
-##Learning Objectives
+## Learning Objectives
 * Execute a QIIME command:  Assemble paired-end reads
 * Execute a shell script to automate a process
 * Explore input and output files for QIIME workflows and scripts
@@ -23,7 +23,7 @@ Authored by Ashley Shade, with contributions by Sang-Hoon Lee, Siobhan Cusack, J
 * Align sequences, assign taxonomy, and build a tree with representative sequences from OTU definitions
 
 
-##1.1 Getting started
+## 1.1 Getting started
 For this tutorial, we will be using the 16S rRNA gene sequencing data that has previously been generated. Let's connect to our compute, and download our data. 
 ```
 wget https://s3.amazonaws.com/edamame/EDAMAME_16S.tar.gz
@@ -45,6 +45,7 @@ These samples were sequenced using MiSeq 150 bp paired-end approach. Since the V
 join_paired_ends.py -f C01D01F_sub.fastq -r C01D01R_sub.fastq -o C01D01
 ```
 The previous command works by calling the python script `join_paired_ends.py` and having it act on the forward and reverse reads for sample C01D01.
+
 ### 1.2.2  Sanity check and file inspection.
 
 There are some questions you may be having: What files does this return?  How many reads were successfully merged?
@@ -96,7 +97,7 @@ Next, we are going to automate the previous process so we don't have to individu
 rm -r C01D01
 ```
 
-###1.2.3  Automate paired-end merging with a shell script.
+### 1.2.3  Automate paired-end merging with a shell script.
 
 We would have to execute an iteration of the `join_paired_ends.py` command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a [shell script](https://github.com/edamame-course/Amplicon_Analysis/blob/master/resources/Merged_Reads_Script.sh) to automate the task. 
 
@@ -123,7 +124,7 @@ chmod 755 Merged_Reads_Script.sh
 _Bonus_: A little about this shell script
 For those of you interested in how this script works I recommend you take a look at it either through your terminal with `less` or online [here](https://github.com/edamame-course/Amplicon_Analysis/blob/master/resources/Merged_Reads_Script.sh). The script uses a "for loop" to repeat a set of commands for every single pair of files we have. For each sample the script first performs the merging with `join_paired_ends.py` and saves the output to a directory with the name of the sample. Secondly, because of some weird naming conventions the `join_paired_ends.py` function follows, the script renames and moves the resulting merged read files to a single directory each with their own name. Finally, the script removes the original directory that `join_paired_ends.py` as a cleanup step. This gets rid of 54 unnecessary directories making saving our instance space and our eyes the strain of having to look at them all everytime we want to `ls` in the directory.  
 
-###1.2.4  Sanity check #2.
+### 1.2.4  Sanity check #2.
 
 How many files were we expecting from the assembly?  There were 54 pairs to be assembled, and we are generating one assembled fastq for each.  Thus, the Merged_reads directory should contain 54 files.  Navigate up one directory, and then use the `wc` (word count) command to check the number of files in the directory.
 
@@ -139,7 +140,7 @@ mv Merged_Reads ..
 Congratulations! You've assembled paired-end reads!  
 
 
-##1.3 Understanding the QIIME mapping file
+## 1.3 Understanding the QIIME mapping file
 
 QIIME requires a [mapping file](http://qiime.org/documentation/file_formats.html) for most analyses.  This file is important because it links the sample IDs with their metadata (and, with their primers/barcodes if using QIIME for quality-control).
 
@@ -164,7 +165,7 @@ Guidelines for formatting map files:
   - If you plan to use QIIME for demultiplexing (which we do not need because the our reads already came demultiplexed from the facility), the BarcodeSequence and LinkerPrimer sequence columns are also needed, as the second and third columns, respectively.
   - Excel can cause formatting heartache.  See more details [here](https://github.com/edamame-course/docs/blob/gh-pages/extra/QIIME_Tutorial/MapFormatExcelHeartAche.md).
 
-##1.4  Getting assembled reads into the one big data file, and extracting summary information
+## 1.4  Getting assembled reads into the one big data file, and extracting summary information
 
 QIIME expects all of the data to be in one file, and, currently, we have one separate fastq file for each assembled read.  We will add labels to each sample and merge into one fasta file using the `add_qiime_labels.py` script. Documentation is [here](http://qiime.org/scripts/add_qiime_labels.html).
 
@@ -194,8 +195,8 @@ Looks like we have right around 442,289 sequences. This is a nice QIIME command 
 
 
 
-##1.5  Picking Operational Taxonomic Units, OTUs.
-###1.5.1  Preamble
+## 1.5  Picking Operational Taxonomic Units, OTUs.
+### 1.5.1  Preamble
 Picking OTUs is sometimes called "clustering," as sequences with some threshold of identity are "clustered" together to into an OTU.
 
   _Important decision_: Should I use a de-novo method of picking OTUs or a reference-based method, or some combination? ([Or not at all?](http://www.mendeley.com/catalog/interpreting-16s-metagenomic-data-without-clustering-achieve-subotu-resolution/)). The answer to this will depend, in part, on what is known about the community a priori.  For instance, a human or mouse gut bacterial community will have lots of representatives in well-curated 16S databases, simply because these communities are relatively well-studied.  Therefore, a reference-based method may be preferred.  The limitation is that any taxa that are unknown or previously unidentified will be omitted from the community.  As another example, a community from a lesser-known environment, like Mars or a cave, or a community from a relatively less-explored environment would have fewer representative taxa in even the best databases.  Therefore, one would miss a lot of taxa if using a reference-based method.  The third option is to use a reference database but to set aside any sequences that do not have good matches to that database, and then to cluster these de novo.
@@ -205,7 +206,7 @@ Picking OTUs is sometimes called "clustering," as sequences with some threshold 
 We use the QIIME workflow command: `pick_open_reference_otus.py` for this step.  Documentation is [here](http://qiime.org/scripts/pick_open_reference_otus.html).
 The default QIIME 1.9.1 method for OTU picking is uclust, which we use here for simplicity's sake.  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
 
-###1.5.2 OTU picking
+### 1.5.2 OTU picking
 
 This next step will take about 45 minutes. **Note**: Use [tmux](https://github.com/edamame-course/2015-tutorials/blob/master/final/2015-06-22_tmux.md)!
 
@@ -238,7 +239,7 @@ Finally, we need to exit tmux:
 ctrl+b d
 ```
 
-###1.5.3  Exploring results from OTU picking workflow
+### 1.5.3  Exploring results from OTU picking workflow
 #####"Steps" from open reference picking
 
 In uclust_openref/, we can see several new directories and files.  Let's explore them, starting with the "step1.." directories.  As the [documentation for pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) explains:
@@ -256,7 +257,7 @@ If you navigate into one of the "step" directories, you will see a series of out
 What are the other directories?  The open reference OTU picking also automatically takes the next steps towards building the OTU table.  The pynast_aligned_seqs directory and the uclust_assigned_taxonomy each have outputs and logs from alignments and taxonomic assignment, respectively.  Notice that the directories are named so that the algorithm/tool used to perform the task is provided (e.g., pynast was used for alignment, uclust was used for taxonomy).  Very smart!
 
 
-#####Alignment output
+##### Alignment output
 Navigate into the pynast_aligned_seq directory directory.  There are four files waiting there:  one file of sequences that failed to align, one of sequences that did align, one of "pre-alignment" files, and a log file.  Inspect each.  
 
 If you want to build a tree with some other out-of-QIIME software, this is where you would find the rep_set alignment.  The log file provides a rep-sequence by rep-sequence report.  If you needed align sequences as an independent step, you would use `align_seqs.py`; documentation [here](http://qiime.org/scripts/align_seqs.html?highlight=align_seqs).
@@ -270,7 +271,7 @@ count_seqs.py -i rep_set_failures.fasta
 We see that there were 690 rep. sequences that failed to align, and approximately 22,206 that did.  (Also, notice what short-read alignments generally look like...not amazing).
 
 
-#####Taxonomy files
+##### Taxonomy files
 Move up a directory and then cd into the uclust_assigned_taxonomy directory.
 
 ```
@@ -292,20 +293,20 @@ You will notice that some files have "mc2" appended to them. "mc2" designates th
 Sanity check: How can you compare the OTUs in the full dataset versus the singletons-omitted dataset?
 
 
-######Biom-formatted OTU tables
+###### Biom-formatted OTU tables
 These tables have the extension ".biom"  There are lots of [important resources](http://biom-format.org/) for understanding and working with the "biome" formatted tables, which were developed to deal with very large, sparse datasets, like those for microbial communities.  There are several versions - some omitting singletons (mc2), some containing taxonomic assignment of otus (w_tax), some omitting alignment failures (no_pynast_failures). Biom-formatted tables are actually a binary file, so looking at it with `less` or `more` won't be informative.  
 
-######Representative sequences (one from each OTU)
+###### Representative sequences (one from each OTU)
 ```   
 more rep_set.fna
 ```
 This is not an alignment, but the list of representative sequences used to assign taxonomy to the OTU, to make the alignment, and to build the tree.
 
 
-######Log files
+###### Log files
 Open them up!  You will be delighted!  It has all of the information you ever wanted to know about the parameters and tools you've just used for your workflow analysis!  _Hint_:  most of this information is needed when writing the methods sections of manuscripts using sequencing data.
 
-#Resources and help
+# Resources and help
 ## QIIME
   - [QIIME](qiime.org) offers a suite of developer-designed [tutorials](http://www.qiime.org/tutorials/tutorial.html).
   - [Documentation](http://www.qiime.org/scripts/index.html) for all QIIME scripts.
