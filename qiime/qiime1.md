@@ -193,21 +193,6 @@ count_seqs.py -i combined_seqs.fna
 
 Looks like we have right around 442,289 sequences. This is a nice QIIME command to call frequently, because it provides the total number of sequences in a file, as well as some information about the lengths of those sequences.  But, suppose we wanted to know more than the median/mean of these sequences?
 
-Another trick with QIIME is that you can call all the mothur commands within the QIIME environment, which is very handy.  mothur offers a very useful command called `summary.seqs`, which operates on a fasta/fna file to give summary statistics about its contents.
-
-```
-mothur
-```
-
-```
-summary.seqs(fasta=combined_seqs.fna)
-```
-
-Note that both summary.seqs and count_seqs.py have returned the same total number of seqs in the .fna file (442,289).  Use the following command to quit the mothur environment and return to QIIME.  
-
-```
-quit()
-```
 
 
 ##1.5  Picking Operational Taxonomic Units, OTUs.
