@@ -129,7 +129,7 @@ For those of you interested in how this script works I recommend you take a look
 How many files were we expecting from the assembly?  There were 54 pairs to be assembled, and we are generating one assembled fastq for each.  Thus, the Merged_reads directory should contain 54 files.  Navigate up one directory, and then use the `wc` (word count) command to check the number of files in the directory.
 
 ```
-ls -1 Merged_Reads | wc -l
+ls Merged_Reads | wc -l
 ```
 
 The terminal should return the number "54". Let's move this whole directory up one level so that we can access more easily with QIIME:
