@@ -12,10 +12,10 @@ Authored by Jin Choi for EDAMAME2015, based on a previous tutorial.
 EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
 ***
 
-##Overarching Goal
+## Overarching Goal
 * This tutorial will contribute towards an understanding of BLAST running locally
 
-##Learning Objectives
+## Learning Objectives
 * Build local DB
 * Blast query into local DB
 
