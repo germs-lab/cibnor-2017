@@ -270,15 +270,6 @@ count_seqs.py -i rep_set_failures.fasta
 
 We see that there were 690 rep. sequences that failed to align, and approximately 22,206 that did.  (Also, notice what short-read alignments generally look like...not amazing).
 
-*Sanity check?*  If you like, [BLAST](http://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch&BLAST_SPEC=MicrobialGenomes) the top sequence that failed to align to convince yourself that it is, indeed, a pitiful failure.
-
-If, in the future, you ever have a large proportion of rep seqs that fail to align, it could be due to:
-  *  Hooray! These are novel organisms! (But, think about the novelty of the habitat before jumping to conclusions.)
-  *  The alignment parameters were too stringent for short reads, causing "real" sequences to fail alignment.
-  * The paired-end merger algorithm (e.g., join_paired_ends.py) did not do a perfect job, and concatenated ends that do not belong together.
-  * Some combination of the above, as well as some other scenarios.
-
-The failed-to-align sequences are filtered automatically with this QIIME otu-picking workflow (really, the removing the entire OTU cluster that they represent); the filtered results are in the otu_table_mc2_w_tax_no_pynast_failures.biom file. It's generally good to use this filtered table; however, we will be using the non-filtered table, otu_table_mc2_w_tax.biom, for the rest of the workflow. 
 
 #####Taxonomy files
 Move up a directory and then cd into the uclust_assigned_taxonomy directory.
