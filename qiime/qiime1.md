@@ -6,7 +6,6 @@ date: 2016-07-13
 ---
 
 #Intro to QIIME for amplicon analysis
-
 Authored by Ashley Shade, with contributions by Sang-Hoon Lee, Siobhan Cusack, Jackson Sorensen, and John Chodkowski.  Modified by Adina Howe.  Original tutorial is at [EDAMAME-2016 wiki](https://github.com/edamame-course/2016-tutorials/wiki)
 
 ##Overarching Goal
