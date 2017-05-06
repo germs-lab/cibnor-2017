@@ -17,7 +17,6 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 
 ##Learning Objectives
 * Extract summary information from a biom OTU table
-* Subsample a dataset to an even sequencing coverage across all ccommunity observations
 * Calculate and visualize within-sample (alpha) diversity
 
 ***
@@ -52,42 +51,6 @@ The summary file contains information about the number of sequences per sample, 
 
 ![img13](./img/Summary_Table.png)
 
-
-### 2.2 Rarefaction (subsampling)
-
-***
-*BREAK* Subsampling Learning Activity!
-***
-
-
-Before we start any ecological analyses, we want to evenly subsample ("rarefy", but see this [discussion](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531)) all the samples to an equal ("even") number of sequences so that they can be directly compared to one another. Many heartily agree (as exampled by [Gihring et al. 2011](http://onlinelibrary.wiley.com/doi/10.1111/j.1462-2920.2011.02550.x/full)) that sample-to-sample comparisons cannot be made unless subsampling to an equal sequencing depth is performed.
-
-To subsample the OTU table, we need to decide the appropriate subsampling depth. What is the best number of sequences?  As a rule, we must subsample to the minimum number of sequences per sample for all samples *included* in analyses.  Sometimes this is not straightforward, but here are some things to consider:
-
-*  Are there low-sequence samples that have very few reads because there was a technological error (a bubble, poor DNA extraction, poor amplification, etc)?  These samples should be removed (and hopefully re-sequenced), especially if there is no biological explanation for the low number of reads.
-*  How complex is the community?  An acid-mine drainage community is less rich than a soil, and so fewer sequences per sample are needed to evaluate diversity.
-*  How exhaustive is the sequencing?  If this is unknown, an exploratory rarefaction analysis could be done to estimate.
-*  How important is it to keep all samples in the analysis?  Consider the costs and benefits of, for example, dropping one not-very-well-sequenced replicate in favor of increasing overall sequence information.  Will it destroy your experimental design if you remove a few samples? If you've got $$ to spare, built-in sequencing redundancy/replication is helpful for this.
-*  Don't fret!  Soon sequencing will be so inexpensive that we will be sequencing every community exhaustively and not have to worry about it anymore.
-
-In this example dataset, we want to keep all of our samples, so we will subsample to 5196, which is the minimum number of sequences in any sample. **You may need to subsample to a slightly different depth since the slight variations in the OTU picking algorithm will result in a different number reads for each sample.**   Documentation is [here](http://qiime.org/scripts/single_rarefaction.html?highlight=rarefaction).
-
-```
-single_rarefaction.py -i otu_table_mc2_w_tax.biom -o otu_table_mc2_w_tax_even5196.biom -d 5196
-```
-
-We append even5196 to the end of the table to distinguish the subsampled table from the full table.  This is even5196 table is the final biom table on which to perform ecological analyses.  If we run the [biom summary](http://biom-format.org/documentation/summarizing_biom_tables.html) command, we will now see that every sample in the new table has exactly the same number of sequences:
-
-```
-biom summarize_table -i otu_table_mc2_w_tax_even5196.biom -o summary_otu_table_mc2_w_tax_even5196.txt
-
-head summary_otu_table_mc2_w_tax_even5196.txt
-```
-![img14](../img/Rarefaction.png)
-
-Our "clean" dataset has 54 samples and 22,496 OTUs defined at 97% sequence identity.
-
-There is a [paper](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531) that suggests that even subsampling is not necessary, but this is very actively debated.
 
 ### 2.3 Calculating within-sample (alpha) diversity
 
