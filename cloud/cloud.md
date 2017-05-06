@@ -17,7 +17,7 @@
 -   Distributed system platform: software layers that facilitates
     coordination and management of a distributed system (e.g.,
     queue-based system, and MapReduce)
--   Distributed system:
+
 -   High Performance Computing (HPC): large assemble of physical
     machines and a homogeneous operating system (e.g., your
     institutions' HPC, XSEDE's HPC)
