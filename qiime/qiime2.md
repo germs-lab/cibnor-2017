@@ -5,7 +5,7 @@ comments: true
 date: 2016-07-13
 ---
 #QIIME Tutorial 2
-Authored by Ashley Shade, with contributions by Sang-Hoon Lee, Siobhan Cusack, Jackson Sorensen, and John Chodkowski
+Authored by Ashley Shade, with contributions by Sang-Hoon Lee, Siobhan Cusack, Jackson Sorensen, and John Chodkowski.  Modified by Adina Howe.
 [EDAMAME-2016 wiki](https://github.com/edamame-course/2016-tutorials/wiki)
 
 ***
@@ -43,9 +43,9 @@ If you wish to filter your table before proceeding with summary statistics and v
 Navigate to the uclust_openref/ directory. The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  Let's use biom commands to summarize the table.  Let's proceed with the table that has singletons removed and taxonomy assigned ("mc2_w_tax.biom").
 
 ```
-biom summarize_table -i otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax.txt
+biom summarize-table -i otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax.txt
 
-more summary_otu_table_mc2_w_tax.txt
+less summary_otu_table_mc2_w_tax.txt
 ```
 
 The summary file contains information about the number of sequences per sample, which will help us to make decisions about rarefaction (subsampling).  When we inspect the file, we see that sample C08.05102014.R1.D01.GCTGATGAGCTG has the minimum number of reads observed.  This is what we will use as a subsampling depth.  Also, a lot of the info in this file is typically reported in methods sections of manuscripts.
