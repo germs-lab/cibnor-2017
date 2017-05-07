@@ -167,9 +167,8 @@ blastn -db rep_set.fna.db -query MyQuery.txt -out outtabular.txt -outfmt 6
 
 Let's try a different blast so you get your own practice, with a slight twist.  Imagine you've compiled a database of genes from all isolates that originate from soil, and you would like to compare it to genes in NCBI RefSeq (a popular genome database).  We're providing you two files -- the RefSoil16s.fa file -- the sequences of 16S rRNA genes from soil isolates and the database -- rep_set_sub.fna that you have downloaded from NCBI.
 
-## Excercise
-
-Identify your query and database and complete a BLAST.
+## Exercise
+Imagine you've compiled a database of genes from all isolates that originate from soil, and you would like to compare it to genes in NCBI RefSeq (a popular genome database).  We're providing you two files -- the RefSoil16s.fa file -- the sequences of 16S rRNA genes from soil isolates and the database -- rep_set_sub.fna that you have downloaded from NCBI.  How would you find the sequences within the database which are the closest match to the genes from your isolates?
 
 ## Different BLAST options
 BLAST has lots and lots and lots of options. Run 'blastn' by itself to see what they are. Some of the most useful ones are `-evalue`.
